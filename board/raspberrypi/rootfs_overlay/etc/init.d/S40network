@@ -1,0 +1,27 @@
+#!/bin/sh
+#
+# Configure networking at boot
+#
+
+case "$1" in
+  start)
+    echo "Configuring network..."
+    ifconfig eth0 up
+    udhcpc -i eth0  # Get an IP address from DHCP
+    wpa_supplicant -B -i wlan0 -c /etc/wpa_supplicant/wpa_supplicant.conf
+    udhcpc -i wlan0  # Get an IP address from DHCP
+    ;;
+  stop)
+    echo "Stopping network..."
+    ifconfig eth0 down
+    ;;
+  restart)
+    $0 stop
+    $0 start
+    ;;
+  *)
+    echo "Usage: $0 {start|stop|restart}"
+    exit 1
+esac
+
+exit 0
