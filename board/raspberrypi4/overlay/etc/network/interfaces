@@ -1,0 +1,13 @@
+auto lo
+iface lo inet loopback
+
+auto eth0
+iface eth0 inet dhcp
+
+auto wlan0
+iface wlan0 inet static
+    address 192.168.68.100  # Your static IP
+    netmask 255.255.255.0
+    gateway 192.168.68.1   # Your router's IP
+    dns-nameservers 8.8.8.8 8.8.4.4 # Google DNS (or your preferred DNS)
+    wpa-conf /etc/wpa_supplicant.conf
