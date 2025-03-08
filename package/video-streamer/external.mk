@@ -1,1 +1,0 @@
-$(eval $(call externals-add-package,video-streamer))

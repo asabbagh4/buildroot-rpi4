@@ -4,7 +4,7 @@
 # Example: Copy a custom script to /usr/local/bin
 # Note: TARGET_DIR points to the root of *built* target file system.
 # BINARIES_DIR points to output/images
-cp ${TARGET_DIR}/usr/bin/video-streamer ${BINARIES_DIR}/
+#cp ${TARGET_DIR}/usr/bin/my-video-app ${BINARIES_DIR}/
 #
 # Example: Create a directory on target
 mkdir -p ${TARGET_DIR}/opt/my-custom-data
@@ -33,4 +33,4 @@ echo "service.adb.tcp.port=5555" >> ${TARGET_DIR}/etc/build.prop
 
 # Example: copy compiled libraries and application to host output/target directory
 cp -r ${TARGET_DIR}/usr/lib/lib* ${TOPDIR}/output/target/usr/lib
-cp ${TARGET_DIR}/usr/bin/video-streamer ${TOPDIR}/output/target/usr/bin
+#cp ${TARGET_DIR}/usr/bin/my-video-app ${TOPDIR}/output/target/usr/bin

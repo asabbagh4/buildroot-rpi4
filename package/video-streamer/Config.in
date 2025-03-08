@@ -1,5 +1,0 @@
-
-config BR2_PACKAGE_RPI4_CAMERA_STREAMER
-	bool "RPI4 CAM Streaming App"
-	help
-	  RPI4 Webcam App that streams video and detects objects

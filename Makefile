@@ -1,22 +1,32 @@
-.PHONY: all clean image update
+# Makefile for the Raspberry Pi 4 Buildroot project (Custom Tree Method)
 
-all:
-	$(MAKE) -C buildroot
+# Buildroot directory
+BUILDROOT_DIR = buildroot
+CUSTOM_DEFCONFIG = $(PWD)/configs/raspberrypi4_defconfig
 
-clean:
-	$(MAKE) -C buildroot clean
+.PHONY: all image clean distclean config menuconfig rebuild-app
+
+all: image
 
 image:
-	$(MAKE) -C buildroot raspberrypi4_defconfig
-	$(MAKE) -C buildroot
+	$(MAKE) -C $(BUILDROOT_DIR) O=output BR2_EXTERNAL=$(PWD) BR2_DEFCONFIG=$(CUSTOM_DEFCONFIG) defconfig
+	$(MAKE) -C $(BUILDROOT_DIR) O=output
 
-update:
-	git submodule update --init --recursive
+config:
+	$(MAKE) -C $(BUILDROOT_DIR) O=output BR2_EXTERNAL=$(PWD) BR2_DEFCONFIG=$(CUSTOM_DEFCONFIG) defconfig
 
-# Helper target to quickly rebuild just your application (for development)
+menuconfig:
+	$(MAKE) -C $(BUILDROOT_DIR) O=output BR2_EXTERNAL=$(PWD) menuconfig
+	$(MAKE) -C $(BUILDROOT_DIR) O=output savedefconfig
+
+clean:
+	$(MAKE) -C $(BUILDROOT_DIR) O=output clean
+
+distclean:
+	$(MAKE) -C $(BUILDROOT_DIR) O=output distclean
+	rm -rf $(PWD)/output
+
 rebuild-app:
-	$(MAKE) -C buildroot video-streamer
-
-# Helper target to clean just your application
-clean-app:
-	$(MAKE) -C buildroot video-streamer-dirclean
+	$(MAKE) -C $(BUILDROOT_DIR) O=output -C package/my-video-app-dirclean
+	$(MAKE) -C $(BUILDROOT_DIR) O=output -C package/my-video-app-rebuild
+	$(MAKE) -C $(BUILDROOT_DIR) O=output
