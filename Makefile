@@ -3,30 +3,32 @@
 # Buildroot directory
 BUILDROOT_DIR = buildroot
 CUSTOM_DEFCONFIG = $(PWD)/configs/raspberrypi4_defconfig
+OUTPUT_DIR = $(abspath $(BUILDROOT_DIR)/output)
 
 .PHONY: all image clean distclean config menuconfig rebuild-app
 
 all: image
 
 image:
-	$(MAKE) -C $(BUILDROOT_DIR) O=output BR2_EXTERNAL=$(PWD) BR2_DEFCONFIG=$(CUSTOM_DEFCONFIG) defconfig
-	$(MAKE) -C $(BUILDROOT_DIR) O=output
+	$(MAKE) -C $(BUILDROOT_DIR) O=$(OUTPUT_DIR) BR2_EXTERNAL=$(PWD) BR2_DEFCONFIG=$(CUSTOM_DEFCONFIG) defconfig
+	$(MAKE) -C $(BUILDROOT_DIR) O=$(OUTPUT_DIR)
 
 config:
-	$(MAKE) -C $(BUILDROOT_DIR) O=output BR2_EXTERNAL=$(PWD) BR2_DEFCONFIG=$(CUSTOM_DEFCONFIG) defconfig
+	$(MAKE) -C $(BUILDROOT_DIR) O=$(OUTPUT_DIR) BR2_EXTERNAL=$(PWD) BR2_DEFCONFIG=$(CUSTOM_DEFCONFIG) defconfig
 
 menuconfig:
-	$(MAKE) -C $(BUILDROOT_DIR) O=output BR2_EXTERNAL=$(PWD) menuconfig
-	$(MAKE) -C $(BUILDROOT_DIR) O=output savedefconfig
+	$(MAKE) -C $(BUILDROOT_DIR) O=$(OUTPUT_DIR) BR2_EXTERNAL=$(PWD) menuconfig
+	$(MAKE) -C $(BUILDROOT_DIR) O=$(OUTPUT_DIR) savedefconfig
 
 clean:
-	$(MAKE) -C $(BUILDROOT_DIR) O=output clean
+	$(MAKE) -C $(BUILDROOT_DIR) O=$(OUTPUT_DIR) clean
 
 distclean:
-	$(MAKE) -C $(BUILDROOT_DIR) O=output distclean
-	rm -rf $(PWD)/output
+	$(MAKE) -C $(BUILDROOT_DIR) O=$(OUTPUT_DIR) distclean
+	rm -rf $(OUTPUT_DIR)
 
 rebuild-app:
-	$(MAKE) -C $(BUILDROOT_DIR) O=output -C package/my-video-app-dirclean
-	$(MAKE) -C $(BUILDROOT_DIR) O=output -C package/my-video-app-rebuild
-	$(MAKE) -C $(BUILDROOT_DIR) O=output
+	rm -rf $(OUTPUT_DIR)/build/my-video-app-*
+	$(MAKE) -C $(BUILDROOT_DIR) O=$(OUTPUT_DIR) my-video-app
+	$(MAKE) -C $(BUILDROOT_DIR) O=$(OUTPUT_DIR) target-finalize
+	$(MAKE) -C $(BUILDROOT_DIR) O=$(OUTPUT_DIR)

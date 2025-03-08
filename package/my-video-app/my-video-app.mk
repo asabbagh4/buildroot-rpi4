@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-MY_VIDEO_APP_VERSION = 5f03a08bb363c601657f3ca63335161518fcd634 # Or a specific commit/tag
+MY_VIDEO_APP_VERSION = origin/master
 MY_VIDEO_APP_SITE = https://github.com/asabbagh4/rpi4-object-tracking.git
 MY_VIDEO_APP_SITE_METHOD = git
 MY_VIDEO_APP_LICENSE = GPL-3.0+ # Replace with your actual license
