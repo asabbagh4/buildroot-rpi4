@@ -7,5 +7,5 @@ This repo utilizes buildroot to build cusotm linux images and then builds the ap
  make image
 
  ## Flash the SD card
-
- sudo dd if=output/images/sdcard.img of=/dev/sdX bs=4M conv=fsync status=progress
+run this from the root foldeR:
+ sudo dd if=buildroot/output/images/sdcard.img of=/dev/sdX bs=4M conv=fsync status=progress
