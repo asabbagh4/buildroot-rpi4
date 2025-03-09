@@ -1,5 +1,5 @@
-
 config BR2_PACKAGE_MY_VIDEO_APP
 	bool "my-video-app"
+	depends on BR2_PACKAGE_GSTREAMER1
 	help
 	  RPI4 Webcam App that streams video and detects objects

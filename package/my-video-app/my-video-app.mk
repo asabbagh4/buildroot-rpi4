@@ -11,7 +11,7 @@ MY_VIDEO_APP_LICENSE = GPL-3.0+ # Replace with your actual license
 MY_VIDEO_APP_LICENSE_FILES = LICENSE # Replace with your license file
 
 # Dependencies (important for correct build order)
-MY_VIDEO_APP_DEPENDENCIES = gstreamer1 gst1-plugins-base gst1-plugins-good opencv3
+MY_VIDEO_APP_DEPENDENCIES = gstreamer1
 
 # Compilation steps (adapt to your application's build system)
 define MY_VIDEO_APP_BUILD_CMDS
